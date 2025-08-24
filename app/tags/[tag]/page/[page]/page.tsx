@@ -21,11 +21,14 @@ export const generateStaticParams = async () => {
   });
 };
 
-export default async function TagPage({
-  params,
-}: {
-  params: { tag: string; page: string };
-}) {
+interface TagPageProps {
+  params: {
+    tag: string;
+    page: string;
+  };
+}
+
+export default async function TagPage({ params }: TagPageProps) {
   // 한글 URL 처리: decodeURIComponent 사용하고 slug로 통일
   const decodedTag = decodeURIComponent(params.tag);
   const tag = slug(decodedTag);
