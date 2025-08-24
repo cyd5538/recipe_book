@@ -7,34 +7,25 @@ import { notFound } from 'next/navigation';
 
 const POSTS_PER_PAGE = 5;
 
-// 배포에서도 동작하도록 generateStaticParams에서 slug 사용
 export const generateStaticParams = async () => {
   const tagCounts = tagData as Record<string, number>;
   return Object.keys(tagCounts).flatMap((tag) => {
     const postCount = tagCounts[tag];
     const totalPages = Math.max(1, Math.ceil(postCount / POSTS_PER_PAGE));
-    const sluggedTag = slug(tag); // slug로 URL 생성
     return Array.from({ length: totalPages }, (_, i) => ({
-      tag: sluggedTag,
+      tag: encodeURI(tag),
       page: (i + 1).toString(),
     }));
   });
 };
 
-interface TagPageProps {
-  params: {
-    tag: string;
-    page: string;
-  };
-}
-
-export default async function TagPage({ params }: TagPageProps) {
-  // 한글 URL 처리: decodeURIComponent 사용하고 slug로 통일
-  const decodedTag = decodeURIComponent(params.tag);
-  const tag = slug(decodedTag);
+export default async function TagPage(props: {
+  params: Promise<{ tag: string; page: string }>;
+}) {
+  const params = await props.params;
+  const tag = decodeURI(params.tag);
+  const title = tag[0].toUpperCase() + tag.split(' ').join('-').slice(1);
   const pageNumber = parseInt(params.page);
-
-  // 태그 필터링
   const filteredPosts = allCoreContent(
     sortPosts(
       allBlogs.filter(
@@ -42,31 +33,20 @@ export default async function TagPage({ params }: TagPageProps) {
       )
     )
   );
-
   const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
 
-  // 페이지 번호가 잘못되었으면 404
+  // Return 404 for invalid page numbers or empty pages
   if (pageNumber <= 0 || pageNumber > totalPages || isNaN(pageNumber)) {
     return notFound();
   }
-
   const initialDisplayPosts = filteredPosts.slice(
     POSTS_PER_PAGE * (pageNumber - 1),
     POSTS_PER_PAGE * pageNumber
   );
-
   const pagination = {
     currentPage: pageNumber,
     totalPages: totalPages,
   };
-
-  // 원본 태그명 찾기 (한글 표시용)
-  const tagCounts = tagData as Record<string, number>;
-  const originalTag =
-    Object.keys(tagCounts).find((t) => slug(t) === tag) || decodedTag;
-
-  // 제목은 원본 태그명으로 표시
-  const title = originalTag;
 
   return (
     <ListLayout
