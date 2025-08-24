@@ -13,14 +13,16 @@ export async function generateMetadata(props: {
   params: Promise<{ tag: string }>;
 }): Promise<Metadata> {
   const params = await props.params;
-  const tag = decodeURIComponent(params.tag); // decodeURI → decodeURIComponent
+  const tag = decodeURIComponent(params.tag); // 한글 태그 디코딩
   return genPageMetadata({
     title: tag,
     description: `${siteMetadata.title} ${tag} tagged content`,
     alternates: {
       canonical: './',
       types: {
-        'application/rss+xml': `${siteMetadata.siteUrl}/tags/${tag}/feed.xml`,
+        'application/rss+xml': `${siteMetadata.siteUrl}/tags/${encodeURIComponent(
+          tag
+        )}/feed.xml`,
       },
     },
   });
@@ -29,8 +31,10 @@ export async function generateMetadata(props: {
 export const generateStaticParams = async () => {
   const tagCounts = tagData as Record<string, number>;
   const tagKeys = Object.keys(tagCounts);
+
+  // ✅ 원본 태그 그대로 반환 (한글 포함)
   return tagKeys.map((tag) => ({
-    tag: slug(tag), // encodeURI(tag) → slug(tag)로 일관성 유지
+    tag: encodeURIComponent(tag), // URL 안전하게 하기 위해 인코딩
   }));
 };
 
@@ -42,7 +46,7 @@ export default async function TagPage(props: {
   const params = await props.params;
   console.log('Raw params:', params);
 
-  // 한글 URL 처리 개선
+  // 한글 URL 처리
   const decodedTag = decodeURIComponent(params.tag);
   const sluggedTag = slug(decodedTag);
 
@@ -53,13 +57,12 @@ export default async function TagPage(props: {
     'available tags': Object.keys(tagData),
   });
 
-  // 태그 필터링 - 원본 태그로 비교
+  // 태그 필터링 - 원본 태그/slug 둘 다 비교
   const filteredPosts = allCoreContent(
     sortPosts(
       allBlogs.filter((post) => {
         if (!post.tags) return false;
 
-        // 여러 방식으로 매칭 시도
         const matchesByOriginal = post.tags.includes(decodedTag);
         const matchesBySlug = post.tags
           .map((t) => slug(t))
@@ -85,7 +88,7 @@ export default async function TagPage(props: {
     totalPages: totalPages,
   };
 
-  // 원본 태그명으로 제목 표시
+  // 제목은 원본 태그명
   const title = decodedTag;
 
   return (
