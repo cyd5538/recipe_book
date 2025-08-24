@@ -26,8 +26,9 @@ export default async function TagPage({
 }: {
   params: { tag: string; page: string };
 }) {
-  // 한글 URL 처리 후 slug 통일
-  const tag = slug(decodeURI(params.tag));
+  // 한글 URL 처리: decodeURIComponent 사용하고 slug로 통일
+  const decodedTag = decodeURIComponent(params.tag);
+  const tag = slug(decodedTag);
   const pageNumber = parseInt(params.page);
 
   // 태그 필터링
@@ -56,8 +57,13 @@ export default async function TagPage({
     totalPages: totalPages,
   };
 
-  // 제목 처리 (첫 글자 대문자 + 공백 대신 하이픈)
-  const title = tag[0].toUpperCase() + tag.slice(1).replace(/\s+/g, '-');
+  // 원본 태그명 찾기 (한글 표시용)
+  const tagCounts = tagData as Record<string, number>;
+  const originalTag =
+    Object.keys(tagCounts).find((t) => slug(t) === tag) || decodedTag;
+
+  // 제목은 원본 태그명으로 표시
+  const title = originalTag;
 
   return (
     <ListLayout
