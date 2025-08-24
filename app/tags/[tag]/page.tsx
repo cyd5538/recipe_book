@@ -44,18 +44,10 @@ export default async function TagPage(props: {
   console.log('=== TagPage START ===');
 
   const params = await props.params;
-  console.log('Raw params:', params);
 
   // 한글 URL 처리
   const decodedTag = decodeURIComponent(params.tag);
   const sluggedTag = slug(decodedTag);
-
-  console.log('Debug:', {
-    'params.tag': params.tag,
-    decodedTag: decodedTag,
-    sluggedTag: sluggedTag,
-    'available tags': Object.keys(tagData),
-  });
 
   // 태그 필터링 - 원본 태그/slug 둘 다 비교
   const filteredPosts = allCoreContent(
