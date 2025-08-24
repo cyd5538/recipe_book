@@ -9,8 +9,8 @@ interface Props {
 }
 
 export default function AuthorLayout({ children, content }: Props) {
-  const { name, avatar, occupation, company, email, youtube, instagram } = content
-
+  const { name, avatar, occupation, company, email, youtube, instagram, tiktok } = content
+  console.log(tiktok, content)
   return (
     <>
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -19,7 +19,7 @@ export default function AuthorLayout({ children, content }: Props) {
             About
           </h1>
         </div>
-        <div className="items-start space-y-2 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0">
+        <div className="items-start space-y-2 xl:grid xl:grid-cols-3 xl:space-y-0 xl:gap-x-8">
           <div className="flex flex-col items-center space-x-2 pt-8">
             {avatar && (
               <Image
@@ -36,6 +36,7 @@ export default function AuthorLayout({ children, content }: Props) {
             <div className="flex space-x-3 pt-6">
               <SocialIcon kind="mail" href={`mailto:${email}`} />
               <SocialIcon kind="youtube" href={youtube} />
+              <SocialIcon kind="tiktok" href={tiktok} />
               <SocialIcon kind="instagram" href={instagram} />
             </div>
           </div>

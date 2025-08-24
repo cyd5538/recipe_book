@@ -11,6 +11,7 @@ import {
   Instagram,
   Medium,
   Bluesky,
+  TikTok, // TikTok 아이콘 import 추가
 } from './icons'
 
 const components = {
@@ -26,6 +27,7 @@ const components = {
   instagram: Instagram,
   medium: Medium,
   bluesky: Bluesky,
+  tiktok: TikTok, // TikTok 컴포넌트 추가
 }
 
 type SocialIconProps = {
