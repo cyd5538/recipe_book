@@ -117,7 +117,7 @@ export default function RootLayout({
       </head>
       <body
         suppressHydrationWarning
-        className="bg-white font-[BMJUA] text-black antialiased dark:bg-gray-950 dark:text-white"
+        className="bg-white font-sans text-black antialiased dark:bg-gray-950 dark:text-white"
       >
         <ThemeProviders>
           <Analytics
