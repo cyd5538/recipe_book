@@ -1,10 +1,10 @@
-import Link from '@/components/Link'
-import Tag from '@/components/Tag'
-import siteMetadata from '@/data/siteMetadata'
-import { formatDate } from 'pliny/utils/formatDate'
-import Image from 'next/image'
+import Link from '@/components/Link';
+import Tag from '@/components/Tag';
+import siteMetadata from '@/data/siteMetadata';
+import { formatDate } from 'pliny/utils/formatDate';
+import Image from 'next/image';
 
-const MAX_DISPLAY = 4
+const MAX_DISPLAY = 4;
 
 export default function Home({ posts }) {
   return (
@@ -21,7 +21,7 @@ export default function Home({ posts }) {
         <ul className="divide-y divide-gray-200 dark:divide-gray-700">
           {!posts.length && 'No posts found.'}
           {posts.slice(0, MAX_DISPLAY).map((post) => {
-            const { slug, date, title, summary, tags, image } = post
+            const { slug, date, title, summary, tags, image } = post;
             return (
               <li key={slug} className="py-4">
                 <article>
@@ -29,10 +29,12 @@ export default function Home({ posts }) {
                     <dl>
                       <dt className="sr-only">Published on</dt>
                       <dd className="text-base leading-6 font-medium text-gray-500 dark:text-gray-400">
-                        <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
+                        <time dateTime={date}>
+                          {formatDate(date, siteMetadata.locale)}
+                        </time>
                       </dd>
                       {image && (
-                        <div className="relative my-2 h-84 xl:h-40 w-full flex-shrink-0 xl:w-48">
+                        <div className="relative my-2 h-84 w-full flex-shrink-0 xl:h-40 xl:w-48">
                           <Image
                             src={image}
                             alt={title}
@@ -77,7 +79,7 @@ export default function Home({ posts }) {
                   </div>
                 </article>
               </li>
-            )
+            );
           })}
         </ul>
       </div>
@@ -93,5 +95,5 @@ export default function Home({ posts }) {
         </div>
       )}
     </>
-  )
+  );
 }

@@ -3,6 +3,6 @@ const headerNavLinks = [
   { href: '/recipe', title: '레시피' },
   { href: '/tags', title: '태그' },
   { href: '/about', title: 'Who?' },
-]
+];
 
-export default headerNavLinks
+export default headerNavLinks;
