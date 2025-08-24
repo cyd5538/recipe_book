@@ -1,17 +1,17 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: '킥받은레시피',
+  title: '킥받은레시피 - 쉽고 빠른 요리 블로그',
   author: '킥받은레시피',
   headerTitle: '킥받은레시피',
-  description: '킥받은레시피의 요리 블로그입니다.',
+  description:
+    'AI 추천 레시피와 쉽고 빠른 요리법을 소개하는 킥받은레시피 요리 블로그입니다.',
   language: 'ko',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://tailwind-nextjs-starter-blog.vercel.app',
+  siteUrl: 'https://kick-recipe.vercel.app/',
   siteRepo: '',
   siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo.png`,
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
-  mastodon: 'https://mastodon.social/@mastodonuser',
-  email: 'address@yoursite.com',
+  email: 'cyd5538@naver.com',
   github: 'https://github.com',
   x: 'https://twitter.com/x',
   // twitter: 'https://twitter.com/Twitter',
@@ -22,7 +22,7 @@ const siteMetadata = {
   instagram: 'https://www.instagram.com/kick.recipe/',
   medium: 'https://medium.com',
   bluesky: 'https://bsky.app/',
-  tiktok: 'https://www.instagram.com/kick.recipe/',
+  tiktok: 'https://www.tiktok.com/@kick.recipe?lang=ko-KR',
   locale: 'ko',
   // set to true if you want a navbar fixed to the top
   stickyNav: false,
