@@ -68,7 +68,7 @@ export default function RootLayout({
   return (
     <html
       lang={siteMetadata.language}
-      className={`scroll-smooth`}
+      className={`scroll-smooth font-[BMJUA]`}
       suppressHydrationWarning
     >
       <head>
