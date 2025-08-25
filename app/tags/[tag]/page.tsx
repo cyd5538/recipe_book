@@ -9,18 +9,21 @@ import { Metadata } from 'next';
 const POSTS_PER_PAGE = 5;
 
 // 1️⃣ Metadata 생성
-export async function generateMetadata(props: {
+export async function generateMetadata({
+  params,
+}: {
   params: Promise<{ tag: string }>;
 }): Promise<Metadata> {
-  const params = await props.params;
-  const tag = decodeURI(params.tag); // URL에서 들어온 태그를 디코딩
+  const { tag } = await params; // 👈 반드시 await
+  const decodedTag = decodeURIComponent(tag);
+
   return genPageMetadata({
-    title: tag,
-    description: `${siteMetadata.title} ${tag} tagged content`,
+    title: decodedTag,
+    description: `${siteMetadata.title} ${decodedTag} tagged content`,
     alternates: {
       canonical: './',
       types: {
-        'application/rss+xml': `${siteMetadata.siteUrl}/tags/${encodeURI(tag)}/feed.xml`,
+        'application/rss+xml': `${siteMetadata.siteUrl}/tags/${encodeURIComponent(decodedTag)}/feed.xml`,
       },
     },
   });
@@ -32,27 +35,30 @@ export const generateStaticParams = async () => {
   const tagKeys = Object.keys(tagCounts);
 
   return tagKeys.map((tag) => ({
-    tag: encodeURI(tag), // URL에서 한글 안전하게 변환
+    tag: encodeURIComponent(tag), // URL에서 한글 안전하게 변환
   }));
 };
 
 // 3️⃣ 페이지 컴포넌트
-export default async function TagPage(props: {
+export default async function TagPage({
+  params,
+}: {
   params: Promise<{ tag: string }>;
 }) {
-  const params = await props.params;
-  const tag = decodeURI(params.tag); // URL 디코딩
+  const { tag } = await params;
+  const decodedTag = decodeURIComponent(tag);
 
-  // 필터링: post.tags 배열에 decode된 tag가 포함되어 있는지 확인
   const filteredPosts = allCoreContent(
-    sortPosts(allBlogs.filter((post) => post.tags && post.tags.includes(tag)))
+    sortPosts(
+      allBlogs.filter((post) => post.tags && post.tags.includes(decodedTag))
+    )
   );
 
   const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
   const initialDisplayPosts = filteredPosts.slice(0, POSTS_PER_PAGE);
   const pagination = {
     currentPage: 1,
-    totalPages: totalPages,
+    totalPages,
   };
 
   return (
@@ -60,7 +66,7 @@ export default async function TagPage(props: {
       posts={filteredPosts}
       initialDisplayPosts={initialDisplayPosts}
       pagination={pagination}
-      title={tag}
+      title={decodedTag}
     />
   );
 }
