@@ -47,6 +47,8 @@ export default async function TagPage(props: {
       )
     )
   );
+
+  console.log(tag, filteredPosts);
   const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
   const initialDisplayPosts = filteredPosts.slice(0, POSTS_PER_PAGE);
   const pagination = {
