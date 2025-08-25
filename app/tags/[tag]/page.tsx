@@ -14,8 +14,8 @@ export async function generateMetadata({
 }: {
   params: Promise<{ tag: string }>;
 }): Promise<Metadata> {
-  const { tag } = await params; // 👈 반드시 await
-  const decodedTag = decodeURIComponent(tag);
+  const { tag } = await params;
+  const decodedTag = decodeURIComponent(tag); // "%EA%B3%A0%EA%B8%B0" → "고기"
 
   return genPageMetadata({
     title: decodedTag,
@@ -34,8 +34,10 @@ export const generateStaticParams = async () => {
   const tagCounts = tagData as Record<string, number>;
   const tagKeys = Object.keys(tagCounts);
 
+  // ❌ encodeURIComponent 제거
+  // 👉 App Router는 자체적으로 퍼센트 인코딩해주기 때문에 여기선 원본 한글을 넣는 게 맞음
   return tagKeys.map((tag) => ({
-    tag: encodeURIComponent(tag), // URL에서 한글 안전하게 변환
+    tag, // "고기"
   }));
 };
 
@@ -46,7 +48,7 @@ export default async function TagPage({
   params: Promise<{ tag: string }>;
 }) {
   const { tag } = await params;
-  const decodedTag = decodeURIComponent(tag);
+  const decodedTag = decodeURIComponent(tag); // 👈 한글로 변환
 
   const filteredPosts = allCoreContent(
     sortPosts(
