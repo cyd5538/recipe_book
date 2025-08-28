@@ -5,7 +5,8 @@ import siteMetadata from '@/data/siteMetadata';
 export const dynamic = 'force-static';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = siteMetadata.siteUrl;
+  // 마지막 슬래시 제거하여 이중 슬래시 방지
+  const siteUrl = siteMetadata.siteUrl.replace(/\/$/, '');
 
   const blogRoutes = allBlogs
     .filter((post) => !post.draft)
