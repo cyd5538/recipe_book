@@ -115,21 +115,27 @@ export default function ListLayoutWithTags({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      {/* 헤더 섹션 */}
-      <div className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 text-white dark:from-slate-800 dark:via-gray-800 dark:to-gray-900">
-        <div className="container mx-auto px-2 py-8">
-          <div className="text-center">
-            <div className="mb-4 text-6xl">🍳</div>
-            <h1 className="mb-4 text-4xl font-black tracking-tight md:text-6xl">
-              {title}
-            </h1>
-            <p className="mx-auto max-w-2xl text-xl opacity-90">
-              맛있는 레시피와 요리 이야기를 만나보세요
-            </p>
-          </div>
+      <div className="relative overflow-hidden bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 text-white dark:from-slate-800 dark:via-gray-800 dark:to-gray-900">
+        {/* 배경 패턴 */}
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage:
+              'radial-gradient(circle at 25% 25%, white 2px, transparent 2px), radial-gradient(circle at 75% 75%, white 2px, transparent 2px)',
+            backgroundSize: '50px 50px',
+          }}
+        />
+
+        <div className="relative container mx-auto px-4 py-16 text-center">
+          <div className="mb-6 text-6xl">👨‍🍳</div>
+          <h1 className="mb-4 text-4xl font-black tracking-tight md:text-6xl">
+            {title}
+          </h1>
+          <p className="mx-auto max-w-2xl text-xl opacity-90">
+            맛있는 레시피와 요리 이야기를 만나보세요
+          </p>
         </div>
       </div>
-
       <div className="container mx-auto max-w-none px-4 py-12">
         <div className="mx-auto flex max-w-7xl flex-col gap-8 lg:flex-row">
           {/* 사이드바 */}
