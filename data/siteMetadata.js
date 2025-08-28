@@ -4,24 +4,22 @@ const siteMetadata = {
   author: '킥받은레시피',
   headerTitle: '킥받은레시피',
   description:
-    'AI 추천 레시피와 쉽고 빠른 요리법을 소개하는 킥받은레시피 요리 블로그입니다.',
+    '안녕하세요! 요리 주인장이 하나씩 배워가며 성장하는 과정을 함께 기록하는 블로그입니다. ' +
+    'AI 추천 레시피와 함께 실패담부터 성공 노하우까지 솔직하게 공유하며, 같은 초보자 분들께 도움이 되고 싶어요. ' +
+    '요리가 어려웠던 분들도 쉽게 따라할 수 있는 집밥 요리, 간편식 레시피, 건강한 다이어트 요리를 단계별로 자세히 알려드립니다. ' +
+    '한식, 양식, 중식, 일식 가리지 않고 도전해보며, 실패하면서 배운 꿀팁들과 재료 준비법도 아낌없이 나눠요. ' +
+    '바쁜 일상 속에서도 만들 수 있는 10분 요리, 15분 간단 요리, 원팟 요리, 에어프라이어 요리부터 특별한 날 파티 요리까지! ' +
+    '건강도 챙기고 싶은 마음으로 저염식, 저칼로리 요리, 당뇨·고혈압 환자분들을 위한 건강 요리도 함께 연구하고 있어요. 같이 요리해요!',
   language: 'ko',
   theme: 'system', // system, dark or light
   siteUrl: 'https://kick-recipe.vercel.app/',
   siteRepo: '',
-  siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo.png`,
-  socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
-  email: 'cyd5538@naver.com',
-  github: 'https://github.com',
-  x: 'https://twitter.com/x',
+  siteLogo: `${process.env.BASE_PATH || ''}/static/images/kick.jpg`,
+  socialBanner: `${process.env.BASE_PATH || ''}/static/images/kick.jpg`,
+  email: 'cyd5538@google.com',
   // twitter: 'https://twitter.com/Twitter',
-  facebook: 'https://facebook.com',
   youtube: 'https://www.youtube.com/@kickbaneun_recipe',
-  linkedin: 'https://www.linkedin.com',
-  threads: 'https://www.threads.net',
   instagram: 'https://www.instagram.com/kick.recipe/',
-  medium: 'https://medium.com',
-  bluesky: 'https://bsky.app/',
   tiktok: 'https://www.tiktok.com/@kick.recipe?lang=ko-KR',
   locale: 'ko',
   // set to true if you want a navbar fixed to the top
